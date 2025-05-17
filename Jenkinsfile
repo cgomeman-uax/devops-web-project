@@ -20,6 +20,14 @@ pipeline {
                 sh 'mv target/*.war .'
             }
         }
+        stage('Setup Docker Permissions') {
+            steps {
+                sh '''
+                  newgrp docker  # Esto activa los grupos en la sesión actual
+                  groups        # Verificar
+                '''
+          }
+        }
         stage('Debug: User Info') {
           steps {
             sh 'whoami && id'
